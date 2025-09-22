@@ -1,0 +1,25 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="studentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#047857;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="50" cy="50" r="50" fill="url(#studentGrad)"/>
+  
+  <!-- Student Icon -->
+  <g transform="translate(50, 50)" fill="white">
+    <!-- Graduation Cap -->
+    <ellipse cx="0" cy="-8" rx="18" ry="6" opacity="0.9"/>
+    <path d="M-18 -8 L18 -8 L22 -6 L18 -4 L-18 -4 L-22 -6 Z"/>
+    <!-- Tassel -->
+    <line x1="15" y1="-8" x2="20" y2="-15" stroke="white" stroke-width="2"/>
+    <circle cx="20" cy="-15" r="2"/>
+    
+    <!-- User -->
+    <circle cx="0" cy="5" r="6" opacity="0.8"/>
+    <path d="M-10 18 C-10 12 -5 8 0 8 C5 8 10 12 10 18" opacity="0.8"/>
+  </g>
+</svg>

@@ -1,0 +1,22 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="adminGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E40AF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="50" cy="50" r="50" fill="url(#adminGrad)"/>
+  
+  <!-- Admin Icon -->
+  <g transform="translate(50, 50)" fill="white">
+    <!-- Shield -->
+    <path d="M-15 -20 L-10 -25 L0 -25 L10 -25 L15 -20 L15 0 C15 10 8 18 0 20 C-8 18 -15 10 -15 0 Z" opacity="0.9"/>
+    <!-- Crown -->
+    <path d="M-12 -18 L-8 -10 L-4 -15 L0 -8 L4 -15 L8 -10 L12 -18 L10 -20 L-10 -20 Z" />
+    <!-- User -->
+    <circle cx="0" cy="-5" r="4" opacity="0.8"/>
+    <path d="M-8 8 C-8 4 -4 0 0 0 C4 0 8 4 8 8" opacity="0.8"/>
+  </g>
+</svg>

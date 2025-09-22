@@ -1,0 +1,23 @@
+{
+  "short_name": "EduConnect",
+  "name": "EduConnect - Alumni Network Platform",
+  "description": "Connecting Students, Alumni, Faculty, Recruiters, and Institutes",
+  "icons": [
+    {
+      "src": "/assets/icons/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    },
+    {
+      "src": "/favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "16x16 32x32"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#3B82F6",
+  "display": "standalone",
+  "categories": ["education", "networking", "career"],
+  "orientation": "portrait-primary"
+}

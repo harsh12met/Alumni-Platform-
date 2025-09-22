@@ -1,0 +1,29 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="errorBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FEF2F2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FECACA;stop-opacity:0.3" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#errorBg)"/>
+  
+  <!-- Error illustration -->
+  <g transform="translate(200, 100)">
+    <!-- Warning triangle -->
+    <path d="M0 40 L-30 -20 L30 -20 Z" fill="#FEF2F2" stroke="#EF4444" stroke-width="3"/>
+    <!-- Exclamation mark -->
+    <line x1="0" y1="-10" x2="0" y2="10" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="0" cy="20" r="3" fill="#EF4444"/>
+    
+    <!-- Error waves -->
+    <circle cx="0" cy="0" r="50" fill="none" stroke="#EF4444" stroke-width="1" opacity="0.3"/>
+    <circle cx="0" cy="0" r="70" fill="none" stroke="#EF4444" stroke-width="1" opacity="0.2"/>
+    <circle cx="0" cy="0" r="90" fill="none" stroke="#EF4444" stroke-width="1" opacity="0.1"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="200" y="220" font-family="Arial, sans-serif" font-size="18" font-weight="600" fill="#DC2626" text-anchor="middle">Something Went Wrong</text>
+  <text x="200" y="245" font-family="Arial, sans-serif" font-size="14" fill="#7F1D1D" text-anchor="middle">Please try again or contact support</text>
+</svg>
