@@ -42,9 +42,9 @@ const RegisterPage = () => {
   const institutes = [
     { value: 'iit-delhi', label: 'Indian Institute of Technology, Delhi' },
     { value: 'nit-mumbai', label: 'National Institute of Technology, Mumbai' },
-    { value: 'du-delhi', label: 'Delhi University, Delhi' },
     { value: 'bits-pilani', label: 'Birla Institute of Technology and Science, Pilani' },
-    { value: 'vit-vellore', label: 'Vellore Institute of Technology, Vellore' }
+    { value: 'vit-vellore', label: 'Vellore Institute of Technology, Vellore' },
+    { value: 'iisc-bangalore', label: 'Indian Institute of Science, Bangalore' }
   ];
 
   const roles = [

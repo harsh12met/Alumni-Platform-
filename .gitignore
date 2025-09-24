@@ -2,7 +2,10 @@
 node_modules
 .idea
 package-lock.json
+/dist
 /build
 .vscode/
 .idea/
 vite.config.*s.*
+*.log
+.env

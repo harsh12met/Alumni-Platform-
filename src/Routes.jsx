@@ -6,12 +6,13 @@ import NotFound from "./pages/NotFound";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import ProtectedRoute from './components/ProtectedRoute';
 import FacultyDashboard from './pages/faculty-dashboard';
 import AlumniDashboard from './pages/alumni-dashboard';
-import RecruiterDashboard from './pages/recruiter-dashboard';
-import StudentDashboard from './pages/student-dashboard';
+import RecruiterDashboard from './pages/recruiter-dashboard/RecruiterDashboard';
+import StudentDashboard from './pages/student-dashboard/StudentDashboard';
 import SuperAdminDashboard from './pages/super-admin-dashboard';
-import InstituteAdminDashboard from './pages/institute-admin-dashboard';
+import InstituteAdminDashboard from './pages/institute-admin-dashboard/InstituteAdminDashboard';
 
 const Routes = () => {
   return (
@@ -24,13 +25,42 @@ const Routes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         
-        {/* Dashboard Routes */}
-        <Route path="/faculty-dashboard" element={<FacultyDashboard />} />
-        <Route path="/alumni-dashboard" element={<AlumniDashboard />} />
-        <Route path="/recruiter-dashboard" element={<RecruiterDashboard />} />
-        <Route path="/student-dashboard" element={<StudentDashboard />} />
-        <Route path="/super-admin-dashboard" element={<SuperAdminDashboard />} />
-        <Route path="/institute-admin-dashboard" element={<InstituteAdminDashboard />} />
+        {/* Protected Dashboard Routes */}
+        <Route path="/student-dashboard" element={
+          <ProtectedRoute allowedRoles={['Student']}>
+            <StudentDashboard />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/alumni-dashboard" element={
+          <ProtectedRoute allowedRoles={['Alumni']}>
+            <AlumniDashboard />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/faculty-dashboard" element={
+          <ProtectedRoute allowedRoles={['Faculty']}>
+            <FacultyDashboard />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/recruiter-dashboard" element={
+          <ProtectedRoute allowedRoles={['Recruiter']}>
+            <RecruiterDashboard />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/institute-admin-dashboard" element={
+          <ProtectedRoute allowedRoles={['Institute Admin']}>
+            <InstituteAdminDashboard />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/super-admin-dashboard" element={
+          <ProtectedRoute allowedRoles={['Super Admin']}>
+            <SuperAdminDashboard />
+          </ProtectedRoute>
+        } />
         
         {/* 404 Page */}
         <Route path="*" element={<NotFound />} />

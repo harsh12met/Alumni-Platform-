@@ -1,311 +1,373 @@
-import React, { useState } from 'react';
-import Icon from '../../../components/AppIcon';
-import Image from '../../../components/AppImage';
-import Button from '../../../components/ui/Button';
+import React, { useState, useEffect } from 'react';
+import { Calendar, MapPin, Clock, Users, CheckCircle, XCircle, Eye } from 'lucide-react';
 
 const AlumniEventsSection = () => {
-  const [activeFilter, setActiveFilter] = useState('upcoming');
-
-  const events = [
+  const [events, setEvents] = useState([
     {
       id: 1,
-      title: "Tech Alumni Networking Night",
-      description: "Join fellow tech alumni for an evening of networking, sharing experiences, and building connections in the San Francisco Bay Area.",
-      date: "2025-01-15",
-      time: "18:00",
-      location: "TechHub San Francisco",
-      address: "123 Market Street, San Francisco, CA",
-      type: "networking",
-      attendees: 45,
+      title: 'Alumni Tech Meetup 2024',
+      description: 'Join us for an evening of networking and tech talks by industry leaders.',
+      date: '2024-04-15',
+      time: '18:00',
+      location: 'Tech Hub, Downtown',
+      organizer: 'Alumni Association',
       maxAttendees: 100,
-      organizer: "Sarah Johnson",
-      image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=200&fit=crop",
-      status: "registered",
-      price: "Free",
-      tags: ["Networking", "Tech", "Career"]
+      currentAttendees: 45,
+      registrationDeadline: '2024-04-10',
+      isRegistered: false,
+      status: 'upcoming',
+      category: 'networking'
     },
     {
       id: 2,
-      title: "Alumni Reunion 2025",
-      description: "Annual reunion celebrating 10 years since graduation. Reconnect with classmates, share memories, and celebrate achievements.",
-      date: "2025-02-20",
-      time: "15:00",
-      location: "University Campus",
-      address: "Main Auditorium, University Campus",
-      type: "reunion",
-      attendees: 120,
+      title: 'Career Development Workshop',
+      description: 'Learn about the latest trends in career development and skill building.',
+      date: '2024-04-20',
+      time: '14:00',
+      location: 'Virtual Event',
+      organizer: 'Career Services',
       maxAttendees: 200,
-      organizer: "Alumni Association",
-      image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=400&h=200&fit=crop",
-      status: "interested",
-      price: "$25",
-      tags: ["Reunion", "Social", "Campus"]
+      currentAttendees: 85,
+      registrationDeadline: '2024-04-18',
+      isRegistered: true,
+      status: 'upcoming',
+      category: 'professional-development'
     },
     {
       id: 3,
-      title: "Career Development Workshop",
-      description: "Learn about the latest trends in technology careers, interview tips, and professional development strategies from industry leaders.",
-      date: "2025-01-28",
-      time: "14:00",
-      location: "Virtual Event",
-      address: "Online via Zoom",
-      type: "workshop",
-      attendees: 78,
-      maxAttendees: 150,
-      organizer: "Career Services",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop",
-      status: "not_registered",
-      price: "Free",
-      tags: ["Workshop", "Career", "Virtual"]
-    },
-    {
-      id: 4,
-      title: "Startup Pitch Competition",
-      description: "Watch alumni entrepreneurs pitch their innovative startups to a panel of investors and industry experts.",
-      date: "2024-12-10",
-      time: "19:00",
-      location: "Innovation Center",
-      address: "456 Innovation Drive, Palo Alto, CA",
-      type: "competition",
-      attendees: 89,
-      maxAttendees: 120,
-      organizer: "Entrepreneurship Club",
-      image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=200&fit=crop",
-      status: "attended",
-      price: "$15",
-      tags: ["Startup", "Competition", "Innovation"]
+      title: 'Annual Alumni Gala',
+      description: 'Celebrate achievements and reconnect with classmates at our annual gala.',
+      date: '2024-03-10',
+      time: '19:00',
+      location: 'Grand Hotel Ballroom',
+      organizer: 'Alumni Association',
+      maxAttendees: 300,
+      currentAttendees: 250,
+      registrationDeadline: '2024-03-05',
+      isRegistered: true,
+      status: 'past',
+      category: 'social'
     }
-  ];
+  ]);
 
-  const filters = [
-    { id: 'upcoming', label: 'Upcoming', count: events?.filter(e => new Date(e.date) > new Date())?.length },
-    { id: 'registered', label: 'Registered', count: events?.filter(e => e?.status === 'registered')?.length },
-    { id: 'past', label: 'Past Events', count: events?.filter(e => new Date(e.date) < new Date())?.length },
-    { id: 'all', label: 'All Events', count: events?.length }
-  ];
+  const [filter, setFilter] = useState('all');
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
-  const getFilteredEvents = () => {
-    const now = new Date();
-    switch (activeFilter) {
-      case 'upcoming':
-        return events?.filter(event => new Date(event.date) > now);
-      case 'registered':
-        return events?.filter(event => event?.status === 'registered');
-      case 'past':
-        return events?.filter(event => new Date(event.date) < now);
-      default:
-        return events;
-    }
-  };
+  useEffect(() => {
+    // TODO: Fetch events from Firestore
+    // const fetchEvents = async () => {
+    //   try {
+    //     const q = query(
+    //       collection(db, "events"),
+    //       orderBy("date", "desc")
+    //     );
+    //     const querySnapshot = await getDocs(q);
+    //     const eventsData = [];
+    //     querySnapshot.forEach((doc) => {
+    //       eventsData.push({ id: doc.id, ...doc.data() });
+    //     });
+    //     setEvents(eventsData);
+    //   } catch (error) {
+    //     console.error("Error fetching events:", error);
+    //   }
+    // };
+    // fetchEvents();
+  }, []);
 
-  const getEventTypeIcon = (type) => {
-    switch (type) {
-      case 'networking': return 'Users';
-      case 'reunion': return 'Heart';
-      case 'workshop': return 'BookOpen';
-      case 'competition': return 'Trophy';
-      default: return 'Calendar';
+  const handleRegister = async (eventId) => {
+    try {
+      // TODO: Register for event in Firestore
+      // await addDoc(collection(db, "event_registrations"), {
+      //   eventId,
+      //   userId: currentUserId,
+      //   registrationDate: new Date(),
+      //   status: 'registered'
+      // });
+
+      setEvents(prev => prev.map(event => 
+        event.id === eventId 
+          ? { 
+              ...event, 
+              isRegistered: true,
+              currentAttendees: event.currentAttendees + 1
+            }
+          : event
+      ));
+    } catch (error) {
+      console.error('Error registering for event:', error);
     }
   };
 
-  const getEventTypeColor = (type) => {
-    switch (type) {
-      case 'networking': return 'text-blue-600 bg-blue-50';
-      case 'reunion': return 'text-red-600 bg-red-50';
-      case 'workshop': return 'text-green-600 bg-green-50';
-      case 'competition': return 'text-purple-600 bg-purple-50';
-      default: return 'text-gray-600 bg-gray-50';
+  const handleUnregister = async (eventId) => {
+    try {
+      // TODO: Unregister from event in Firestore
+      setEvents(prev => prev.map(event => 
+        event.id === eventId 
+          ? { 
+              ...event, 
+              isRegistered: false,
+              currentAttendees: Math.max(0, event.currentAttendees - 1)
+            }
+          : event
+      ));
+    } catch (error) {
+      console.error('Error unregistering from event:', error);
     }
   };
 
-  const getStatusBadge = (status) => {
-    switch (status) {
-      case 'registered':
-        return <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Registered</span>;
-      case 'interested':
-        return <span className="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Interested</span>;
-      case 'attended':
-        return <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">Attended</span>;
-      default:
-        return null;
-    }
+  const filteredEvents = events.filter(event => {
+    if (filter === 'all') return true;
+    if (filter === 'upcoming') return event.status === 'upcoming';
+    if (filter === 'registered') return event.isRegistered;
+    if (filter === 'past') return event.status === 'past';
+    return true;
+  });
+
+  const getEventStatusColor = (event) => {
+    if (event.status === 'past') return 'bg-gray-100 text-gray-600';
+    if (event.isRegistered) return 'bg-green-100 text-green-600';
+    if (new Date(event.registrationDeadline) < new Date()) return 'bg-red-100 text-red-600';
+    return 'bg-blue-100 text-blue-600';
   };
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date?.toLocaleDateString('en-US', { 
-      weekday: 'short', 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric' 
-    });
-  };
-
-  const formatTime = (timeString) => {
-    const [hours, minutes] = timeString?.split(':');
-    const date = new Date();
-    date?.setHours(parseInt(hours), parseInt(minutes));
-    return date?.toLocaleTimeString('en-US', { 
-      hour: 'numeric', 
-      minute: '2-digit', 
-      hour12: true 
-    });
-  };
-
-  const handleEventAction = (eventId, action) => {
-    console.log(`${action} event:`, eventId);
+  const getEventStatusText = (event) => {
+    if (event.status === 'past') return 'Completed';
+    if (event.isRegistered) return 'Registered';
+    if (new Date(event.registrationDeadline) < new Date()) return 'Registration Closed';
+    return 'Open for Registration';
   };
 
   return (
-    <div className="bg-card border border-border rounded-lg shadow-sm">
-      <div className="p-4 border-b border-border">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-base font-semibold text-card-foreground flex items-center space-x-2">
-            <Icon name="Calendar" size={18} />
-            <span>Alumni Events</span>
-          </h3>
-          <Button variant="default" size="sm" iconName="Plus" iconPosition="left" className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-3 py-1">
-            Create Event
-          </Button>
-        </div>
+    <div className="max-w-6xl mx-auto p-6">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Events</h1>
+        <p className="text-gray-600">Discover and participate in alumni events</p>
+      </div>
 
-        <div className="flex flex-wrap gap-1">
-          {filters?.map((filter) => (
-            <button
-              key={filter?.id}
-              onClick={() => setActiveFilter(filter?.id)}
-              className={`flex items-center space-x-1 px-2 py-1 rounded-md text-xs font-medium transition-colors ${
-                activeFilter === filter?.id
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-              }`}
-            >
-              <span>{filter?.label}</span>
-              <span className={`text-xs px-1 py-0.5 rounded-full ${
-                activeFilter === filter?.id ? 'bg-blue-500 text-white' : 'bg-muted-foreground/20'
-              }`}>
-                {filter?.count}
-              </span>
-            </button>
-          ))}
+      {/* Filter Tabs */}
+      <div className="mb-6">
+        <div className="border-b border-gray-200">
+          <nav className="-mb-px flex space-x-8">
+            {[
+              { id: 'all', label: 'All Events' },
+              { id: 'upcoming', label: 'Upcoming' },
+              { id: 'registered', label: 'My Registrations' },
+              { id: 'past', label: 'Past Events' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setFilter(tab.id)}
+                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                  filter === tab.id
+                    ? 'border-blue-500 text-blue-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
         </div>
       </div>
-      <div className="p-4">
-        {getFilteredEvents()?.length > 0 ? (
-          <div className="space-y-4">
-            {getFilteredEvents()?.map((event) => (
-              <div key={event?.id} className="border border-border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
-                <div className="flex flex-col lg:flex-row">
-                  <div className="lg:w-1/3">
-                    <Image
-                      src={event?.image}
-                      alt={event?.title}
-                      className="w-full h-48 lg:h-full object-cover"
-                    />
-                  </div>
-                  
-                  <div className="flex-1 p-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center space-x-3">
-                        <div className={`p-2 rounded-lg ${getEventTypeColor(event?.type)}`}>
-                          <Icon name={getEventTypeIcon(event?.type)} size={16} />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-card-foreground">{event?.title}</h4>
-                          <p className="text-sm text-muted-foreground">Organized by {event?.organizer}</p>
-                        </div>
-                      </div>
-                      {getStatusBadge(event?.status)}
-                    </div>
 
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                      {event?.description}
-                    </p>
+      {/* Events Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {filteredEvents.map((event) => (
+          <div key={event.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            {/* Event Header */}
+            <div className="p-6">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{event.title}</h3>
+                  <p className="text-gray-600 mb-3">{event.description}</p>
+                </div>
+                <span className={`px-3 py-1 rounded-full text-sm font-medium ${getEventStatusColor(event)}`}>
+                  {getEventStatusText(event)}
+                </span>
+              </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                        <Icon name="Calendar" size={16} />
-                        <span>{formatDate(event?.date)} at {formatTime(event?.time)}</span>
-                      </div>
-                      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                        <Icon name="MapPin" size={16} />
-                        <span>{event?.location}</span>
-                      </div>
-                      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                        <Icon name="Users" size={16} />
-                        <span>{event?.attendees}/{event?.maxAttendees} attendees</span>
-                      </div>
-                      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                        <Icon name="DollarSign" size={16} />
-                        <span>{event?.price}</span>
-                      </div>
-                    </div>
+              {/* Event Details */}
+              <div className="space-y-2 mb-4">
+                <div className="flex items-center text-gray-600">
+                  <Calendar size={16} className="mr-3" />
+                  <span>{new Date(event.date).toLocaleDateString()} at {event.time}</span>
+                </div>
+                <div className="flex items-center text-gray-600">
+                  <MapPin size={16} className="mr-3" />
+                  <span>{event.location}</span>
+                </div>
+                <div className="flex items-center text-gray-600">
+                  <Users size={16} className="mr-3" />
+                  <span>{event.currentAttendees} / {event.maxAttendees} attendees</span>
+                </div>
+                <div className="flex items-center text-gray-600">
+                  <Clock size={16} className="mr-3" />
+                  <span>Registration deadline: {new Date(event.registrationDeadline).toLocaleDateString()}</span>
+                </div>
+              </div>
 
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {event?.tags?.map((tag, index) => (
-                        <span
-                          key={index}
-                          className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-md"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+              {/* Progress Bar */}
+              <div className="mb-4">
+                <div className="flex justify-between text-sm text-gray-600 mb-1">
+                  <span>Attendance</span>
+                  <span>{Math.round((event.currentAttendees / event.maxAttendees) * 100)}%</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    className="bg-blue-600 h-2 rounded-full"
+                    style={{ width: `${(event.currentAttendees / event.maxAttendees) * 100}%` }}
+                  ></div>
+                </div>
+              </div>
 
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        {event?.status === 'not_registered' && (
-                          <Button
-                            variant="default"
-                            size="sm"
-                            onClick={() => handleEventAction(event?.id, 'register')}
-                          >
-                            Register
-                          </Button>
-                        )}
-                        {event?.status === 'interested' && (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleEventAction(event?.id, 'register')}
-                          >
-                            Register Now
-                          </Button>
-                        )}
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          iconName="Share"
-                          onClick={() => handleEventAction(event?.id, 'share')}
-                        >
-                          Share
-                        </Button>
-                      </div>
-                      
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        iconName="ExternalLink"
-                        onClick={() => handleEventAction(event?.id, 'view')}
+              {/* Event Category */}
+              <div className="mb-4">
+                <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
+                  event.category === 'networking' ? 'bg-purple-100 text-purple-800' :
+                  event.category === 'professional-development' ? 'bg-green-100 text-green-800' :
+                  'bg-yellow-100 text-yellow-800'
+                }`}>
+                  {event.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                </span>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => setSelectedEvent(event)}
+                  className="flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                >
+                  <Eye size={16} className="mr-2" />
+                  View Details
+                </button>
+
+                {event.status === 'upcoming' && (
+                  <>
+                    {event.isRegistered ? (
+                      <button
+                        onClick={() => handleUnregister(event.id)}
+                        className="flex items-center px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
                       >
-                        View Details
-                      </Button>
-                    </div>
+                        <XCircle size={16} className="mr-2" />
+                        Unregister
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleRegister(event.id)}
+                        disabled={new Date(event.registrationDeadline) < new Date() || event.currentAttendees >= event.maxAttendees}
+                        className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        <CheckCircle size={16} className="mr-2" />
+                        Register
+                      </button>
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Empty State */}
+      {filteredEvents.length === 0 && (
+        <div className="text-center py-12">
+          <Calendar size={48} className="mx-auto text-gray-400 mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No events found</h3>
+          <p className="text-gray-600">
+            {filter === 'all' ? 'No events available at the moment' :
+             filter === 'upcoming' ? 'No upcoming events' :
+             filter === 'registered' ? 'You haven\'t registered for any events' :
+             'No past events found'}
+          </p>
+        </div>
+      )}
+
+      {/* Event Detail Modal */}
+      {selectedEvent && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-2xl mx-4 max-h-[80vh] overflow-y-auto">
+            <div className="flex items-start justify-between mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">{selectedEvent.title}</h2>
+                <span className={`px-3 py-1 rounded-full text-sm font-medium ${getEventStatusColor(selectedEvent)}`}>
+                  {getEventStatusText(selectedEvent)}
+                </span>
+              </div>
+              <button
+                onClick={() => setSelectedEvent(null)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <XCircle size={24} />
+              </button>
+            </div>
+
+            <div className="space-y-4 mb-6">
+              <p className="text-gray-700">{selectedEvent.description}</p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-3">
+                  <div className="flex items-center text-gray-600">
+                    <Calendar size={18} className="mr-3" />
+                    <span>{new Date(selectedEvent.date).toLocaleDateString()} at {selectedEvent.time}</span>
+                  </div>
+                  <div className="flex items-center text-gray-600">
+                    <MapPin size={18} className="mr-3" />
+                    <span>{selectedEvent.location}</span>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-center text-gray-600">
+                    <Users size={18} className="mr-3" />
+                    <span>{selectedEvent.currentAttendees} / {selectedEvent.maxAttendees} attendees</span>
+                  </div>
+                  <div className="flex items-center text-gray-600">
+                    <Clock size={18} className="mr-3" />
+                    <span>Deadline: {new Date(selectedEvent.registrationDeadline).toLocaleDateString()}</span>
                   </div>
                 </div>
               </div>
-            ))}
+
+              <div>
+                <p className="text-sm text-gray-600">Organized by: <span className="font-medium">{selectedEvent.organizer}</span></p>
+              </div>
+            </div>
+
+            {selectedEvent.status === 'upcoming' && (
+              <div className="flex justify-end space-x-3">
+                <button
+                  onClick={() => setSelectedEvent(null)}
+                  className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  Close
+                </button>
+                {selectedEvent.isRegistered ? (
+                  <button
+                    onClick={() => {
+                      handleUnregister(selectedEvent.id);
+                      setSelectedEvent(null);
+                    }}
+                    className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                  >
+                    Unregister
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      handleRegister(selectedEvent.id);
+                      setSelectedEvent(null);
+                    }}
+                    disabled={new Date(selectedEvent.registrationDeadline) < new Date() || selectedEvent.currentAttendees >= selectedEvent.maxAttendees}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Register Now
+                  </button>
+                )}
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="text-center py-8">
-            <Icon name="Calendar" size={48} className="mx-auto text-muted-foreground mb-4" />
-            <p className="text-muted-foreground">No events found for the selected filter</p>
-            <Button variant="outline" size="sm" className="mt-4 bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-700 font-medium">
-              Browse All Events
-            </Button>
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
