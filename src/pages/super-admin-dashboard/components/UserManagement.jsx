@@ -13,8 +13,8 @@ const UserManagement = () => {
   const users = [
     {
       id: 1,
-      name: "Dr. Sarah Johnson",
-      email: "sarah.johnson@mit.edu",
+      name: "Dr. Priya Kulkarni",
+      email: "priya.kulkarni@mit.edu",
       role: "Institute Admin",
       institute: "MIT",
       status: "active",
@@ -24,8 +24,8 @@ const UserManagement = () => {
     },
     {
       id: 2,
-      name: "John Smith",
-      email: "john.smith@mit.edu",
+      name: "Arjun Patil",
+      email: "arjun.patil@mit.edu",
       role: "Student",
       institute: "MIT",
       status: "active",
@@ -35,8 +35,8 @@ const UserManagement = () => {
     },
     {
       id: 3,
-      name: "Prof. Michael Chen",
-      email: "michael.chen@stanford.edu",
+      name: "Prof. Rajesh Deshmukh",
+      email: "rajesh.deshmukh@stanford.edu",
       role: "Faculty",
       institute: "Stanford",
       status: "active",
@@ -46,8 +46,8 @@ const UserManagement = () => {
     },
     {
       id: 4,
-      name: "Emily Davis",
-      email: "emily.davis@techcorp.com",
+      name: "Sneha Joshi",
+      email: "sneha.joshi@techcorp.com",
       role: "Recruiter",
       institute: "TechCorp",
       status: "pending",
@@ -57,8 +57,8 @@ const UserManagement = () => {
     },
     {
       id: 5,
-      name: "Alex Rodriguez",
-      email: "alex.rodriguez@mit.edu",
+      name: "Kavya Patil",
+      email: "kavya.patil@mit.edu",
       role: "Alumni",
       institute: "MIT",
       status: "suspended",

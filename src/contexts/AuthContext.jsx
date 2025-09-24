@@ -32,10 +32,32 @@ const VALID_CREDENTIALS = {
     password: 'recruiter123',
     institute: 'vit-vellore'
   },
-  'Institute Admin': {
-    email: 'admin@edu.com',
-    password: 'admin123',
-    institute: 'iisc-bangalore'
+  'Institute Admin': [
+    {
+      email: 'instituteadmin@edu.com',
+      password: 'admin123',
+      adminType: 'institute-admin',
+      institute: 'iisc-bangalore'
+    },
+    {
+      email: 'admin@iit.edu',
+      password: 'admin123',
+      adminType: 'institute-admin', 
+      institute: 'iit-delhi'
+    },
+    {
+      email: 'admin@nit.edu',
+      password: 'admin123',
+      adminType: 'institute-admin',
+      institute: 'nit-mumbai'
+    }
+  ],
+  'Department Admin': {
+    email: 'deptadmin@edu.com',
+    password: 'deptadmin123',
+    adminType: 'department-admin',
+    institute: 'iisc-bangalore',
+    department: 'computer-science'
   },
   'Super Admin': {
     email: 'superadmin@edu.com',
@@ -57,11 +79,30 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = (email, password, role, institute) => {
-    const credentials = VALID_CREDENTIALS[role];
+  const login = (email, password, role, institute, adminType = null, department = null) => {
+    // Handle Admin role by checking specific admin types
+    let actualRole = role;
+    if (role === 'Admin' && adminType) {
+      actualRole = adminType === 'institute-admin' ? 'Institute Admin' : 'Department Admin';
+    }
     
-    if (!credentials) {
+    const credentialsConfig = VALID_CREDENTIALS[actualRole];
+    
+    if (!credentialsConfig) {
       throw new Error('Invalid role selected');
+    }
+
+    // Handle multiple credentials for Institute Admin
+    let credentials = credentialsConfig;
+    if (Array.isArray(credentialsConfig)) {
+      // Find matching credentials for the selected institute
+      credentials = credentialsConfig.find(cred => 
+        cred.email === email && cred.institute === institute
+      );
+      
+      if (!credentials) {
+        throw new Error('Invalid email or institute combination');
+      }
     }
 
     // Validate credentials
@@ -69,16 +110,30 @@ export const AuthProvider = ({ children }) => {
       throw new Error('Invalid email or password');
     }
 
-    // For Super Admin, institute is not required
-    if (role !== 'Super Admin' && credentials.institute !== institute) {
-      throw new Error('Invalid institute selection');
+    // Validate admin type for admin roles
+    if (role === 'Admin' && credentials.adminType !== adminType) {
+      throw new Error('Invalid admin type');
+    }
+
+    // Institute validation - only Super Admin doesn't need institute
+    if (actualRole !== 'Super Admin') {
+      if (credentials.institute !== institute) {
+        throw new Error('Invalid institute selection');
+      }
+    }
+
+    // Department validation for department admin
+    if (actualRole === 'Department Admin' && credentials.department !== department) {
+      throw new Error('Invalid department selection');
     }
 
     const userData = {
       email,
-      role,
-      institute: role === 'Super Admin' ? null : institute,
-      name: role,
+      role: actualRole,
+      adminType: role === 'Admin' ? adminType : null,
+      institute: actualRole === 'Super Admin' ? null : institute,
+      department: actualRole === 'Department Admin' ? department : null,
+      name: actualRole,
       loginTime: new Date().toISOString()
     };
 

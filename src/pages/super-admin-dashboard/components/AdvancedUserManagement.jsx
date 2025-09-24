@@ -30,8 +30,8 @@ const AdvancedUserManagement = () => {
     },
     {
       id: 2,
-      name: "Dr. Sarah Johnson",
-      email: "s.johnson@stanford.edu",
+      name: "Dr. Priya Kulkarni",
+      email: "p.kulkarni@stanford.edu",
       role: "faculty",
       institute: "Stanford University",
       status: "active",
@@ -45,8 +45,8 @@ const AdvancedUserManagement = () => {
     },
     {
       id: 3,
-      name: "Mike Chen",
-      email: "mike.chen@google.com",
+      name: "Arjun Patil",
+      email: "arjun.patil@google.com",
       role: "alumni",
       institute: "MIT",
       status: "active",

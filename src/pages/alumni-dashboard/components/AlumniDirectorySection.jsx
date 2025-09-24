@@ -5,7 +5,7 @@ const AlumniDirectorySection = () => {
   const [alumni, setAlumni] = useState([
     {
       id: 1,
-      name: 'Jane Smith',
+      name: 'Priya Kulkarni',
       batch: '2019',
       degree: 'Computer Engineering',
       company: 'Google',
@@ -16,7 +16,7 @@ const AlumniDirectorySection = () => {
     },
     {
       id: 2,
-      name: 'Mike Johnson',
+      name: 'Arjun Patil',
       batch: '2018',
       degree: 'Mechanical Engineering',
       company: 'Tesla',
@@ -27,7 +27,7 @@ const AlumniDirectorySection = () => {
     },
     {
       id: 3,
-      name: 'Sarah Wilson',
+      name: 'Sneha Joshi',
       batch: '2020',
       degree: 'Business Administration',
       company: 'McKinsey & Company',

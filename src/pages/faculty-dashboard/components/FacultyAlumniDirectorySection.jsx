@@ -18,8 +18,8 @@ const FacultyAlumniDirectorySection = () => {
     const mockAlumni = [
       {
         id: '1',
-        name: 'Sarah Johnson',
-        email: 'sarah.johnson@techcorp.com',
+        name: 'Priya Kulkarni',
+        email: 'priya.kulkarni@techcorp.com',
         industry: 'Technology',
         company: 'TechCorp Inc.',
         position: 'Senior Software Engineer',
@@ -32,8 +32,8 @@ const FacultyAlumniDirectorySection = () => {
       },
       {
         id: '2',
-        name: 'Michael Chen',
-        email: 'michael.chen@fintech.com',
+        name: 'Rajesh Deshmukh',
+        email: 'rajesh.deshmukh@fintech.com',
         industry: 'Finance',
         company: 'FinTech Solutions',
         position: 'Data Scientist',
@@ -46,8 +46,8 @@ const FacultyAlumniDirectorySection = () => {
       },
       {
         id: '3',
-        name: 'Emily Rodriguez',
-        email: 'emily.rodriguez@startup.com',
+        name: 'Sneha Joshi',
+        email: 'sneha.joshi@startup.com',
         industry: 'Healthcare',
         company: 'MedTech Startup',
         position: 'Product Manager',

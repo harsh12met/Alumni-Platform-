@@ -33,6 +33,7 @@ import {
   Award
 } from 'lucide-react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
+import AIChatAssistant from '../../components/ui/AIChatAssistant';
 
 const RecruiterDashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -1032,6 +1033,9 @@ const RecruiterDashboard = () => {
       
       {/* Success Message */}
       <SuccessMessage />
+      
+      {/* AI Chat Assistant */}
+      <AIChatAssistant />
     </div>
   );
 };

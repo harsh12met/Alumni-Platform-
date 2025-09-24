@@ -140,7 +140,7 @@ const AlumniDirectory = () => {
       },
       {
         id: '4',
-        name: 'Emily Chen',
+        name: 'Sneha Joshi',
         email: 'emily.chen.job@seeking.com',
         phone: '+1-555-0125',
         profileImage: '/api/placeholder/100/100',
@@ -166,8 +166,8 @@ const AlumniDirectory = () => {
       },
       {
         id: '5',
-        name: 'Michael Brown',
-        email: 'michael.brown@finance.com',
+        name: 'Rajesh Deshmukh',
+        email: 'rajesh.deshmukh@finance.com',
         phone: '+44-20-7123-4567',
         profileImage: '/api/placeholder/100/100',
         college: 'Business School',
@@ -192,8 +192,8 @@ const AlumniDirectory = () => {
       },
       {
         id: '6',
-        name: 'Lisa Wang',
-        email: 'lisa.wang@consultant.com',
+        name: 'Kavya Patil',
+        email: 'kavya.patil@consultant.com',
         phone: '+65-9123-4567',
         profileImage: '/api/placeholder/100/100',
         college: 'Engineering College',

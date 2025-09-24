@@ -13,8 +13,8 @@ const UsersManagement = () => {
     const mockUsers = [
       {
         id: '1',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
+        name: 'Arjun Patil',
+        email: 'arjun.patil@example.com',
         role: 'alumni',
         status: 'pending',
         registrationDate: '2024-01-15',
@@ -22,8 +22,8 @@ const UsersManagement = () => {
       },
       {
         id: '2',
-        name: 'Jane Smith',
-        email: 'jane.smith@example.com',
+        name: 'Priya Kulkarni',
+        email: 'priya.kulkarni@example.com',
         role: 'student',
         status: 'approved',
         registrationDate: '2024-01-10',
@@ -31,8 +31,8 @@ const UsersManagement = () => {
       },
       {
         id: '3',
-        name: 'Dr. Robert Johnson',
-        email: 'robert.johnson@example.com',
+        name: 'Dr. Rajesh Deshmukh',
+        email: 'rajesh.deshmukh@example.com',
         role: 'faculty',
         status: 'approved',
         registrationDate: '2024-01-05',

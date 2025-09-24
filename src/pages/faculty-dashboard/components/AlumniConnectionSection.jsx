@@ -38,7 +38,7 @@ const AlumniConnectionSection = () => {
   const alumni = [
     {
       id: 1,
-      name: 'Sarah Johnson',
+      name: 'Priya Kulkarni',
       graduationYear: 2018,
       degree: 'B.Tech Computer Science',
       currentPosition: 'Senior Software Engineer',

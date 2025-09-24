@@ -13,6 +13,7 @@ import {
   LogOut,
   User
 } from 'lucide-react';
+import AIChatAssistant from '../../components/ui/AIChatAssistant';
 
 // Import components
 import UsersManagement from './components/UsersManagement';
@@ -187,6 +188,9 @@ const SuperAdminDashboard = () => {
           {renderContent()}
         </main>
       </div>
+      
+      {/* AI Chat Assistant */}
+      <AIChatAssistant />
     </div>
   );
 };

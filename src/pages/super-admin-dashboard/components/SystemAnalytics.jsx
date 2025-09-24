@@ -84,7 +84,7 @@ const SystemAnalytics = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-muted-foreground">Total Revenue</p>
-              <p className="text-2xl font-bold text-card-foreground">$2.34M</p>
+              <p className="text-2xl font-bold text-card-foreground">₹19.5 Cr</p>
               <p className="text-xs text-success flex items-center mt-1">
                 <Icon name="TrendingUp" size={12} className="mr-1" />
                 +12.5% from last month

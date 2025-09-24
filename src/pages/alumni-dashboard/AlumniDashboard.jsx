@@ -2,6 +2,7 @@ import React from 'react';
 import DashboardHeader from '../../components/DashboardHeader';
 import { useAuth } from '../../contexts/AuthContext';
 import { Users, Briefcase, MessageCircle, Calendar, Award, Building, MapPin, Heart } from 'lucide-react';
+import AIChatAssistant from '../../components/ui/AIChatAssistant';
 
 const AlumniDashboard = () => {
   const { user } = useAuth();
@@ -196,6 +197,9 @@ const AlumniDashboard = () => {
           </div>
         </div>
       </div>
+      
+      {/* AI Chat Assistant */}
+      <AIChatAssistant />
     </div>
   );
 };

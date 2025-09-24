@@ -13,6 +13,7 @@ import RecruiterDashboard from './pages/recruiter-dashboard/RecruiterDashboard';
 import StudentDashboard from './pages/student-dashboard/StudentDashboard';
 import SuperAdminDashboard from './pages/super-admin-dashboard';
 import InstituteAdminDashboard from './pages/institute-admin-dashboard/InstituteAdminDashboard';
+import DepartmentAdminDashboard from './pages/department-admin-dashboard';
 
 const Routes = () => {
   return (
@@ -50,9 +51,15 @@ const Routes = () => {
           </ProtectedRoute>
         } />
         
-        <Route path="/institute-admin-dashboard" element={
+        <Route path="/institute-admin-dashboard/*" element={
           <ProtectedRoute allowedRoles={['Institute Admin']}>
             <InstituteAdminDashboard />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/department-admin-dashboard/*" element={
+          <ProtectedRoute allowedRoles={['Department Admin']}>
+            <DepartmentAdminDashboard />
           </ProtectedRoute>
         } />
         

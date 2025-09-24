@@ -2,33 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { 
   Users, 
+  GraduationCap,
   Calendar, 
   MessageSquare, 
   Briefcase, 
   Trophy, 
-  Heart, 
-  Target,
+  Heart,
   Menu,
   X,
   LogOut,
   Building2,
   Bell,
-  Settings
+  Settings,
+  CheckCircle
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import AIChatAssistant from '../../components/ui/AIChatAssistant';
 
 // Import components
-import DepartmentRequests from './components/DepartmentRequests';
-import EventsManagement from './components/EventsManagement';
-import FeedbackManagement from './components/FeedbackManagement';
-import JobsManagement from './components/JobsManagement';
-import StoriesManagement from './components/StoriesManagement';
-import DonationsManagement from './components/DonationsManagement';
-import CampaignsManagement from './components/CampaignsManagement';
-import Dashboard from './components/Dashboard';
+import FacultyApprovals from './components/FacultyApprovals';
+import StudentApprovals from './components/StudentApprovals';
+import DepartmentEvents from './components/DepartmentEvents';
+import DepartmentFeedback from './components/DepartmentFeedback';
+import DepartmentJobs from './components/DepartmentJobs';
+import DepartmentStories from './components/DepartmentStories';
+import DepartmentDonations from './components/DepartmentDonations';
+import DepartmentDashboard from './components/DepartmentDashboard';
 
-const InstituteAdminDashboard = () => {
+const DepartmentAdminDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -42,57 +43,57 @@ const InstituteAdminDashboard = () => {
       id: 'dashboard', 
       label: 'Dashboard', 
       icon: Building2, 
-      path: '/institute-admin-dashboard',
+      path: '/department-admin-dashboard',
       description: 'Overview and analytics'
     },
     { 
-      id: 'department-requests', 
-      label: 'Department Requests', 
+      id: 'faculty-approvals', 
+      label: 'Faculty Approvals', 
       icon: Users, 
-      path: '/institute-admin-dashboard/department-requests',
-      description: 'Approve department admin registrations'
+      path: '/department-admin-dashboard/faculty-approvals',
+      description: 'Approve faculty registrations'
+    },
+    { 
+      id: 'student-approvals', 
+      label: 'Student Approvals', 
+      icon: GraduationCap, 
+      path: '/department-admin-dashboard/student-approvals',
+      description: 'Approve student registrations'
     },
     { 
       id: 'events', 
       label: 'Events', 
       icon: Calendar, 
-      path: '/institute-admin-dashboard/events',
-      description: 'Manage institute events'
+      path: '/department-admin-dashboard/events',
+      description: 'Manage department events'
     },
     { 
       id: 'feedback', 
       label: 'Feedback', 
       icon: MessageSquare, 
-      path: '/institute-admin-dashboard/feedback',
+      path: '/department-admin-dashboard/feedback',
       description: 'View feedback and surveys'
     },
     { 
       id: 'jobs', 
       label: 'Jobs', 
       icon: Briefcase, 
-      path: '/institute-admin-dashboard/jobs',
+      path: '/department-admin-dashboard/jobs',
       description: 'Manage job postings'
     },
     { 
       id: 'stories', 
       label: 'Success Stories', 
       icon: Trophy, 
-      path: '/institute-admin-dashboard/stories',
+      path: '/department-admin-dashboard/stories',
       description: 'Manage success stories'
     },
     { 
       id: 'donations', 
       label: 'Donations', 
       icon: Heart, 
-      path: '/institute-admin-dashboard/donations',
-      description: 'Manage donations and campaigns'
-    },
-    { 
-      id: 'campaigns', 
-      label: 'Campaigns', 
-      icon: Target, 
-      path: '/institute-admin-dashboard/campaigns',
-      description: 'Fundraising campaigns'
+      path: '/department-admin-dashboard/donations',
+      description: 'Manage department donations'
     }
   ];
 
@@ -103,17 +104,20 @@ const InstituteAdminDashboard = () => {
     }
   };
 
-  const getInstituteName = () => {
-    // Get institute name from user data or fallback
-    const instituteMap = {
-      'iit-delhi': 'Indian Institute of Technology, Delhi',
-      'nit-mumbai': 'National Institute of Technology, Mumbai',
-      'bits-pilani': 'Birla Institute of Technology and Science, Pilani',
-      'vit-vellore': 'Vellore Institute of Technology, Vellore',
-      'iisc-bangalore': 'Indian Institute of Science, Bangalore'
+  const getDepartmentName = () => {
+    // Get department name from user data or fallback
+    const departmentMap = {
+      'computer-science': 'Computer Science & Engineering',
+      'electrical-engineering': 'Electrical Engineering',
+      'mechanical-engineering': 'Mechanical Engineering',
+      'civil-engineering': 'Civil Engineering',
+      'electronics-communication': 'Electronics & Communication',
+      'information-technology': 'Information Technology',
+      'chemical-engineering': 'Chemical Engineering',
+      'biotechnology': 'Biotechnology'
     };
     
-    return user?.institute ? instituteMap[user.institute] || user.institute : 'Institute Name';
+    return user?.department ? departmentMap[user.department] || user.department : 'Department Name';
   };
 
   return (
@@ -133,19 +137,19 @@ const InstituteAdminDashboard = () => {
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         {/* Sidebar Header */}
-        <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200 bg-gradient-to-r from-blue-600 to-blue-700">
+        <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200 bg-gradient-to-r from-purple-600 to-purple-700">
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-              <Building2 className="w-5 h-5 text-blue-600" />
+              <GraduationCap className="w-5 h-5 text-purple-600" />
             </div>
             <div>
-              <span className="font-bold text-white text-sm">Institute Admin</span>
-              <p className="text-blue-100 text-xs">Management Portal</p>
+              <span className="font-bold text-white text-sm">Department Admin</span>
+              <p className="text-purple-100 text-xs">Management Portal</p>
             </div>
           </div>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="lg:hidden p-1 rounded-md text-white hover:bg-blue-800"
+            className="lg:hidden p-1 rounded-md text-white hover:bg-purple-800"
           >
             <X className="w-5 h-5" />
           </button>
@@ -157,7 +161,7 @@ const InstituteAdminDashboard = () => {
             {sidebarItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path || 
-                              (item.id === 'dashboard' && location.pathname === '/institute-admin-dashboard');
+                              (item.id === 'dashboard' && location.pathname === '/department-admin-dashboard');
               
               return (
                 <button
@@ -169,12 +173,12 @@ const InstituteAdminDashboard = () => {
                   className={`
                     w-full flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 group
                     ${isActive 
-                      ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-600' 
+                      ? 'bg-purple-50 text-purple-700 border-r-2 border-purple-600' 
                       : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                     }
                   `}
                 >
-                  <Icon className={`w-5 h-5 mr-3 ${isActive ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600'}`} />
+                  <Icon className={`w-5 h-5 mr-3 ${isActive ? 'text-purple-600' : 'text-gray-400 group-hover:text-gray-600'}`} />
                   <div className="text-left">
                     <div>{item.label}</div>
                     <div className="text-xs text-gray-500 mt-0.5">{item.description}</div>
@@ -190,7 +194,8 @@ const InstituteAdminDashboard = () => {
           <div className="bg-gray-50 rounded-lg p-3 mb-3">
             <p className="text-xs font-medium text-gray-900">Logged in as:</p>
             <p className="text-xs text-gray-600 truncate">{user?.email}</p>
-            <p className="text-xs text-blue-600 font-medium">{user?.role}</p>
+            <p className="text-xs text-purple-600 font-medium">{user?.role}</p>
+            <p className="text-xs text-gray-500">{getDepartmentName()}</p>
           </div>
         </div>
       </div>
@@ -211,10 +216,10 @@ const InstituteAdminDashboard = () => {
               
               <div>
                 <h1 className="text-xl font-semibold text-gray-900">
-                  {getInstituteName()}
+                  {getDepartmentName()}
                 </h1>
                 <p className="text-sm text-gray-500">
-                  Institute Administration Dashboard
+                  Department Administration Dashboard
                 </p>
               </div>
             </div>
@@ -247,14 +252,14 @@ const InstituteAdminDashboard = () => {
         {/* Page Content */}
         <main className="p-6">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/department-requests" element={<DepartmentRequests />} />
-            <Route path="/events" element={<EventsManagement />} />
-            <Route path="/feedback" element={<FeedbackManagement />} />
-            <Route path="/jobs" element={<JobsManagement />} />
-            <Route path="/stories" element={<StoriesManagement />} />
-            <Route path="/donations" element={<DonationsManagement />} />
-            <Route path="/campaigns" element={<CampaignsManagement />} />
+            <Route path="/" element={<DepartmentDashboard />} />
+            <Route path="/faculty-approvals" element={<FacultyApprovals />} />
+            <Route path="/student-approvals" element={<StudentApprovals />} />
+            <Route path="/events" element={<DepartmentEvents />} />
+            <Route path="/feedback" element={<DepartmentFeedback />} />
+            <Route path="/jobs" element={<DepartmentJobs />} />
+            <Route path="/stories" element={<DepartmentStories />} />
+            <Route path="/donations" element={<DepartmentDonations />} />
           </Routes>
         </main>
       </div>
@@ -265,4 +270,4 @@ const InstituteAdminDashboard = () => {
   );
 };
 
-export default InstituteAdminDashboard;
+export default DepartmentAdminDashboard;

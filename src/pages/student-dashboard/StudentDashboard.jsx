@@ -9,6 +9,7 @@ import JobsSection from '../../components/sections/JobsSection';
 import EventsSection from '../../components/sections/EventsSection';
 import ResourcesSection from '../../components/sections/ResourcesSection';
 import NotificationsSection from '../../components/sections/NotificationsSection';
+import AIChatAssistant from '../../components/ui/AIChatAssistant';
 
 const StudentDashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -69,6 +70,9 @@ const StudentDashboard = () => {
           onClick={() => setIsCollapsed(true)}
         />
       )}
+      
+      {/* AI Chat Assistant */}
+      <AIChatAssistant />
     </div>
   );
 };

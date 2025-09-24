@@ -28,7 +28,7 @@ const StudentProgressSection = () => {
   const students = [
     {
       id: 1,
-      name: 'Alice Johnson',
+      name: 'Kavya Patil',
       rollNumber: 'CS2021001',
       email: 'alice.johnson@university.edu',
       course: 'cs201',

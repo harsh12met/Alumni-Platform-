@@ -5,6 +5,7 @@ import {
   Briefcase, ChevronRight, Star, ArrowRight, Mail, Phone, 
   MapPin, Check, Quote, Play, Target, Shield, Zap, Eye 
 } from 'lucide-react';
+import AIChatAssistant from '../components/ui/AIChatAssistant';
 
 const HomePage = () => {
   const [stats, setStats] = useState({
@@ -549,6 +550,9 @@ const HomePage = () => {
           </div>
         </div>
       </footer>
+
+      {/* AI Chat Assistant */}
+      <AIChatAssistant />
     </div>
   );
 };

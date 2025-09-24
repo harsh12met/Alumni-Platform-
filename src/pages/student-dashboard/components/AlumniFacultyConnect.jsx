@@ -42,7 +42,7 @@ const AlumniFacultyConnect = () => {
   const people = [
     {
       id: 1,
-      name: 'Sarah Johnson',
+      name: 'Priya Kulkarni',
       type: 'alumni',
       title: 'Senior Software Engineer',
       company: 'Google',
@@ -67,7 +67,7 @@ const AlumniFacultyConnect = () => {
     },
     {
       id: 2,
-      name: 'Dr. Michael Chen',
+      name: 'Dr. Rajesh Deshmukh',
       type: 'faculty',
       title: 'Professor of Computer Science',
       company: 'University Department',
@@ -117,7 +117,7 @@ const AlumniFacultyConnect = () => {
     },
     {
       id: 4,
-      name: 'David Kim',
+      name: 'Arjun Patil',
       type: 'alumni',
       title: 'Startup Founder & CEO',
       company: 'TechStart Inc.',
@@ -128,7 +128,7 @@ const AlumniFacultyConnect = () => {
       profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
       bio: 'Serial entrepreneur with multiple successful exits. Love helping students turn ideas into reality.',
       skills: ['Entrepreneurship', 'Business Strategy', 'Fundraising', 'Team Building'],
-      achievements: ['2 Successful Exits', '$10M+ Raised', 'Forbes 30 Under 30'],
+      achievements: ['2 Successful Exits', '₹75 Cr+ Raised', 'Forbes 30 Under 30'],
       mentorshipAreas: ['Entrepreneurship', 'Startup Strategy', 'Fundraising'],
       availability: 'Available for mentorship',
       responseRate: '87%',
@@ -142,7 +142,7 @@ const AlumniFacultyConnect = () => {
     },
     {
       id: 5,
-      name: 'Prof. Lisa Zhang',
+      name: 'Prof. Kavita Joshi',
       type: 'faculty',
       title: 'Associate Professor',
       company: 'Electronics Department',

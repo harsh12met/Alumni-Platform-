@@ -4,6 +4,7 @@ import Icon from '../components/AppIcon';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import Select from '../components/ui/Select';
+import AIChatAssistant from '../components/ui/AIChatAssistant';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -25,12 +26,14 @@ const RegisterPage = () => {
     
     // Role & Institute
     role: '',
+    adminType: '', // 'institute-admin' or 'department-admin'
     institute: '',
+    instituteName: '', // For institute admin to enter new institute
+    department: '',
     
     // Role-specific fields
     studentId: '',
     graduationYear: '',
-    department: '',
     course: '',
     employeeId: '',
     companyName: '',
@@ -52,7 +55,12 @@ const RegisterPage = () => {
     { value: 'alumni', label: 'Alumni' },
     { value: 'faculty', label: 'Faculty' },
     { value: 'recruiter', label: 'Recruiter' },
-    { value: 'institute-admin', label: 'Institute Admin' }
+    { value: 'admin', label: 'Admin' }
+  ];
+
+  const adminTypes = [
+    { value: 'institute-admin', label: 'Institute Admin' },
+    { value: 'department-admin', label: 'Department Admin' }
   ];
 
   const genderOptions = [
@@ -125,7 +133,27 @@ const RegisterPage = () => {
 
     if (step === 3) {
       if (!formData.role) newErrors.role = 'Please select your role';
-      if (!formData.institute) newErrors.institute = 'Please select an institute';
+      
+      // Admin type validation
+      if (formData.role === 'admin') {
+        if (!formData.adminType) newErrors.adminType = 'Please select admin type';
+        
+        if (formData.adminType === 'institute-admin') {
+          if (!formData.instituteName.trim()) newErrors.instituteName = 'Institute name is required';
+          if (!formData.employeeId.trim()) newErrors.employeeId = 'Employee ID is required';
+          if (!formData.designation.trim()) newErrors.designation = 'Designation is required';
+        }
+        
+        if (formData.adminType === 'department-admin') {
+          if (!formData.institute) newErrors.institute = 'Please select an institute';
+          if (!formData.department) newErrors.department = 'Please select a department';
+          if (!formData.employeeId.trim()) newErrors.employeeId = 'Employee ID is required';
+          if (!formData.designation.trim()) newErrors.designation = 'Designation is required';
+        }
+      } else {
+        // Non-admin roles need institute selection
+        if (!formData.institute) newErrors.institute = 'Please select an institute';
+      }
       
       // Role-specific validations
       if (formData.role === 'student') {
@@ -147,11 +175,6 @@ const RegisterPage = () => {
       
       if (formData.role === 'recruiter') {
         if (!formData.companyName.trim()) newErrors.companyName = 'Company name is required';
-        if (!formData.designation.trim()) newErrors.designation = 'Designation is required';
-      }
-      
-      if (formData.role === 'institute-admin') {
-        if (!formData.employeeId.trim()) newErrors.employeeId = 'Employee ID is required';
         if (!formData.designation.trim()) newErrors.designation = 'Designation is required';
       }
     }
@@ -190,7 +213,7 @@ const RegisterPage = () => {
         'alumni': '/alumni-dashboard',
         'faculty': '/faculty-dashboard',
         'recruiter': '/recruiter-dashboard',
-        'institute-admin': '/institute-admin-dashboard'
+        'admin': '/institute-admin-dashboard' // Both admin types go to institute admin dashboard
       };
 
       navigate(dashboardRoutes[formData.role] || '/student-dashboard');
@@ -401,26 +424,65 @@ const RegisterPage = () => {
         )}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Select Institute *</label>
-        <Select
-          options={institutes}
-          value={formData.institute}
-          onChange={(value) => handleInputChange('institute', value)}
-          placeholder="Choose your institute"
-          className={errors.institute ? 'border-red-500' : ''}
-        />
-        {errors.institute && (
-          <p className="mt-1 text-sm text-red-600">{errors.institute}</p>
-        )}
-      </div>
+      {/* Admin Type Selection - Only show if role is admin */}
+      {formData.role === 'admin' && (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Admin Type *</label>
+          <Select
+            options={adminTypes}
+            value={formData.adminType}
+            onChange={(value) => handleInputChange('adminType', value)}
+            placeholder="Choose admin type"
+            className={errors.adminType ? 'border-red-500' : ''}
+          />
+          {errors.adminType && (
+            <p className="mt-1 text-sm text-red-600">{errors.adminType}</p>
+          )}
+        </div>
+      )}
+
+      {/* Institute Selection - Show for non-admin roles or department admin */}
+      {(formData.role && formData.role !== 'admin') || (formData.role === 'admin' && formData.adminType === 'department-admin') ? (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Select Institute *</label>
+          <Select
+            options={institutes}
+            value={formData.institute}
+            onChange={(value) => handleInputChange('institute', value)}
+            placeholder="Choose your institute"
+            className={errors.institute ? 'border-red-500' : ''}
+          />
+          {errors.institute && (
+            <p className="mt-1 text-sm text-red-600">{errors.institute}</p>
+          )}
+        </div>
+      ) : null}
+
+      {/* Institute Name Input - Only show for institute admin */}
+      {formData.role === 'admin' && formData.adminType === 'institute-admin' && (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Institute Name *</label>
+          <Input
+            placeholder="Enter your institute name"
+            value={formData.instituteName}
+            onChange={(e) => handleInputChange('instituteName', e.target.value)}
+            className={errors.instituteName ? 'border-red-500' : ''}
+            iconName="Building2"
+          />
+          {errors.instituteName && (
+            <p className="mt-1 text-sm text-red-600">{errors.instituteName}</p>
+          )}
+        </div>
+      )}
 
       {/* Role-specific fields */}
       {formData.role && (
         <div className="bg-gray-50 rounded-lg p-4 space-y-4">
           <h4 className="font-medium text-gray-900">Additional Information</h4>
           
-          {(formData.role === 'student' || formData.role === 'alumni' || formData.role === 'faculty') && (
+          {/* Department Selection - For students, alumni, faculty, and department admin */}
+          {(formData.role === 'student' || formData.role === 'alumni' || formData.role === 'faculty' || 
+            (formData.role === 'admin' && formData.adminType === 'department-admin')) && (
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Department *</label>
               <Select
@@ -486,7 +548,8 @@ const RegisterPage = () => {
             </div>
           )}
 
-          {(formData.role === 'faculty' || formData.role === 'institute-admin') && (
+          {/* Employee ID and Designation - For faculty and admin roles */}
+          {(formData.role === 'faculty' || formData.role === 'admin') && (
             <>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Employee ID *</label>
@@ -504,7 +567,10 @@ const RegisterPage = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Designation *</label>
                 <Input
-                  placeholder="e.g., Professor, Assistant Professor, Admin"
+                  placeholder={formData.role === 'admin' ? 
+                    (formData.adminType === 'institute-admin' ? 'e.g., Institute Director, Principal' : 'e.g., HOD, Department Admin') :
+                    'e.g., Professor, Assistant Professor'
+                  }
                   value={formData.designation}
                   onChange={(e) => handleInputChange('designation', e.target.value)}
                   className={errors.designation ? 'border-red-500' : ''}
@@ -663,6 +729,9 @@ const RegisterPage = () => {
           </button>
         </div>
       </div>
+      
+      {/* AI Chat Assistant */}
+      <AIChatAssistant />
     </div>
   );
 };
