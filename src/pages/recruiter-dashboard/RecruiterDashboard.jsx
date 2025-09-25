@@ -132,6 +132,21 @@ const RecruiterDashboard = () => {
                 <label className="block text-sm font-medium mb-1">Description</label>
                 <textarea className="w-full px-3 py-2 border rounded-lg h-24" placeholder="Job description..."></textarea>
               </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Target Institute (Optional)</label>
+                <select className="w-full px-3 py-2 border rounded-lg">
+                  <option value="">All Institutes (No specific targeting)</option>
+                  <option value="iit-delhi">Indian Institute of Technology, Delhi</option>
+                  <option value="nit-mumbai">National Institute of Technology, Mumbai</option>
+                  <option value="bits-pilani">Birla Institute of Technology and Science, Pilani</option>
+                  <option value="vit-vellore">Vellore Institute of Technology, Vellore</option>
+                  <option value="iisc-bangalore">Indian Institute of Science, Bangalore</option>
+                  <option value="iit-bombay">Indian Institute of Technology, Bombay</option>
+                  <option value="nit-trichy">National Institute of Technology, Tiruchirappalli</option>
+                  <option value="iiit-hyderabad">International Institute of Information Technology, Hyderabad</option>
+                </select>
+                <p className="text-xs text-gray-500 mt-1">Leave unselected to show job to all institutes</p>
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1">Location</label>

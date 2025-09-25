@@ -86,8 +86,8 @@ export default function LoginPage() {
       newErrors.adminType = 'Please select admin type';
     }
     
-    // Institute is required for all roles except Super Admin
-    if (formData.role && formData.role !== 'Super Admin' && !formData.institute) {
+    // Institute is required for all roles except Super Admin and Recruiter
+    if (formData.role && formData.role !== 'Super Admin' && formData.role !== 'Recruiter' && !formData.institute) {
       newErrors.institute = 'Please select your institute';
     }
     
@@ -142,7 +142,7 @@ export default function LoginPage() {
     }
   };
 
-  const showInstituteField = formData.role && formData.role !== 'Super Admin';
+  const showInstituteField = formData.role && formData.role !== 'Super Admin' && formData.role !== 'Recruiter';
   
   const showDepartmentField = formData.role === 'Admin' && formData.adminType === 'department-admin';
 
@@ -258,6 +258,12 @@ export default function LoginPage() {
               <p className="mt-2 text-sm text-emerald-600 flex items-center">
                 <Shield className="w-4 h-4 mr-1" />
                 Super Admin detected - Institute selection not required
+              </p>
+            )}
+            {formData.role === 'Recruiter' && (
+              <p className="mt-2 text-sm text-blue-600 flex items-center">
+                <Users className="w-4 h-4 mr-1" />
+                Recruiter detected - You can target specific institutes when posting jobs
               </p>
             )}
           </div>

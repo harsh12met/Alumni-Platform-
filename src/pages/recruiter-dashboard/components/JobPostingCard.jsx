@@ -15,7 +15,8 @@ const JobPostingCard = () => {
     salary: '',
     deadline: '',
     description: '',
-    requirements: ''
+    requirements: '',
+    institute: '' // Added institute selection
   });
 
   const recentJobs = [
@@ -25,6 +26,7 @@ const JobPostingCard = () => {
       department: "Engineering",
       location: "San Francisco, CA",
       type: "Full-time",
+      institute: "IIT Delhi",
       applications: 45,
       status: "Active",
       postedDate: "2025-01-15",
@@ -36,6 +38,7 @@ const JobPostingCard = () => {
       department: "Product",
       location: "Remote",
       type: "Full-time",
+      institute: "NIT Mumbai",
       applications: 32,
       status: "Active",
       postedDate: "2025-01-10",
@@ -47,6 +50,7 @@ const JobPostingCard = () => {
       department: "Analytics",
       location: "New York, NY",
       type: "Internship",
+      institute: "BITS Pilani",
       applications: 78,
       status: "Closed",
       postedDate: "2024-12-20",
@@ -66,6 +70,18 @@ const JobPostingCard = () => {
     { value: 'mid', label: 'Mid Level (2-5 years)' },
     { value: 'senior', label: 'Senior Level (5+ years)' },
     { value: 'executive', label: 'Executive Level' }
+  ];
+
+  // Institute options for job posting
+  const instituteOptions = [
+    { value: 'iit-delhi', label: 'Indian Institute of Technology, Delhi' },
+    { value: 'nit-mumbai', label: 'National Institute of Technology, Mumbai' },
+    { value: 'bits-pilani', label: 'Birla Institute of Technology and Science, Pilani' },
+    { value: 'vit-vellore', label: 'Vellore Institute of Technology, Vellore' },
+    { value: 'iisc-bangalore', label: 'Indian Institute of Science, Bangalore' },
+    { value: 'iit-bombay', label: 'Indian Institute of Technology, Bombay' },
+    { value: 'nit-trichy', label: 'National Institute of Technology, Tiruchirappalli' },
+    { value: 'iiit-hyderabad', label: 'International Institute of Information Technology, Hyderabad' }
   ];
 
   const handleInputChange = (field, value) => {
@@ -88,7 +104,8 @@ const JobPostingCard = () => {
       salary: '',
       deadline: '',
       description: '',
-      requirements: ''
+      requirements: '',
+      institute: ''
     });
   };
 
@@ -136,6 +153,19 @@ const JobPostingCard = () => {
                 placeholder="e.g., Senior Software Engineer"
                 required
               />
+              <div>
+                <Select
+                  label="Target Institute (Optional)"
+                  options={[
+                    { value: '', label: 'All Institutes (No specific targeting)' },
+                    ...instituteOptions
+                  ]}
+                  value={jobForm?.institute}
+                  onChange={(value) => handleInputChange('institute', value)}
+                  placeholder="Select institute to target or leave for all"
+                />
+                <p className="text-xs text-gray-500 mt-1">Leave unselected to show job to all institutes</p>
+              </div>
               <Input
                 label="Department"
                 value={jobForm?.department}
@@ -241,6 +271,10 @@ const JobPostingCard = () => {
                   <span className="flex items-center space-x-1">
                     <Icon name="Building" size={14} />
                     <span>{job?.department}</span>
+                  </span>
+                  <span className="flex items-center space-x-1">
+                    <Icon name="GraduationCap" size={14} />
+                    <span>{job?.institute}</span>
                   </span>
                   <span className="flex items-center space-x-1">
                     <Icon name="MapPin" size={14} />

@@ -30,7 +30,7 @@ const VALID_CREDENTIALS = {
   'Recruiter': {
     email: 'recruiter@edu.com',
     password: 'recruiter123',
-    institute: 'vit-vellore'
+    institute: null // Recruiters don't need institute during login
   },
   'Institute Admin': [
     {
@@ -115,8 +115,8 @@ export const AuthProvider = ({ children }) => {
       throw new Error('Invalid admin type');
     }
 
-    // Institute validation - only Super Admin doesn't need institute
-    if (actualRole !== 'Super Admin') {
+    // Institute validation - only Super Admin and Recruiter don't need institute
+    if (actualRole !== 'Super Admin' && actualRole !== 'Recruiter') {
       if (credentials.institute !== institute) {
         throw new Error('Invalid institute selection');
       }
@@ -131,7 +131,7 @@ export const AuthProvider = ({ children }) => {
       email,
       role: actualRole,
       adminType: role === 'Admin' ? adminType : null,
-      institute: actualRole === 'Super Admin' ? null : institute,
+      institute: (actualRole === 'Super Admin' || actualRole === 'Recruiter') ? null : institute,
       department: actualRole === 'Department Admin' ? department : null,
       name: actualRole,
       loginTime: new Date().toISOString()

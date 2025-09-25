@@ -151,8 +151,10 @@ const RegisterPage = () => {
           if (!formData.designation.trim()) newErrors.designation = 'Designation is required';
         }
       } else {
-        // Non-admin roles need institute selection
-        if (!formData.institute) newErrors.institute = 'Please select an institute';
+        // Non-admin roles need institute selection (except recruiters)
+        if (formData.role !== 'recruiter' && !formData.institute) {
+          newErrors.institute = 'Please select an institute';
+        }
       }
       
       // Role-specific validations
@@ -441,8 +443,8 @@ const RegisterPage = () => {
         </div>
       )}
 
-      {/* Institute Selection - Show for non-admin roles or department admin */}
-      {(formData.role && formData.role !== 'admin') || (formData.role === 'admin' && formData.adminType === 'department-admin') ? (
+      {/* Institute Selection - Show for non-admin roles (except recruiters) or department admin */}
+      {((formData.role && formData.role !== 'admin' && formData.role !== 'recruiter') || (formData.role === 'admin' && formData.adminType === 'department-admin')) ? (
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Select Institute *</label>
           <Select
