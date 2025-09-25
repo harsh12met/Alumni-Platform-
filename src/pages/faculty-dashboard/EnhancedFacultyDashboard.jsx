@@ -23,8 +23,10 @@ import {
   BarChart3,
   UserCheck,
   ChevronRight,
-  Plus
+  Plus,
+  MapPin
 } from 'lucide-react';
+import AlumniMap from '../../components/ui/AlumniMap';
 
 const EnhancedFacultyDashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -196,6 +198,7 @@ const EnhancedFacultyDashboard = () => {
     { id: 'students', label: 'Student Management', icon: Users },
     { id: 'research', label: 'Research Projects', icon: Award },
     { id: 'alumni-directory', label: 'Alumni Network', icon: UserCheck },
+    { id: 'alumni-map', label: 'Alumni Map', icon: MapPin },
     { id: 'guest-lectures', label: 'Guest Lectures', icon: Presentation },
     { id: 'collaborations', label: 'Collaborations', icon: Handshake },
     { id: 'events', label: 'Events', icon: Calendar },
@@ -851,6 +854,13 @@ const EnhancedFacultyDashboard = () => {
                 </div>
               </div>
             </div>
+          </div>
+        );
+
+      case 'alumni-map':
+        return (
+          <div className="p-6">
+            <AlumniMap showInstituteFilter={false} userRole="faculty" />
           </div>
         );
 

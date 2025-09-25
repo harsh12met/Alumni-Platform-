@@ -33,6 +33,7 @@ import {
   Award
 } from 'lucide-react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
+import AlumniMap from '../../components/ui/AlumniMap';
 import AIChatAssistant from '../../components/ui/AIChatAssistant';
 
 const RecruiterDashboard = () => {
@@ -69,6 +70,7 @@ const RecruiterDashboard = () => {
     { id: 'profile', label: 'Company Profile', icon: Building2 },
     { id: 'job-postings', label: 'Job Postings', icon: Briefcase },
     { id: 'candidate-search', label: 'Candidate Search', icon: Search },
+    { id: 'alumni-map', label: 'Alumni Map', icon: MapPin },
     { id: 'applications', label: 'Applications', icon: FileText },
     { id: 'interviews', label: 'Interviews', icon: Calendar },
     { id: 'events', label: 'Company Events', icon: Users },
@@ -940,12 +942,19 @@ const RecruiterDashboard = () => {
     </div>
   );
 
+  const renderAlumniMap = () => (
+    <div className="p-6">
+      <AlumniMap showInstituteFilter={true} userRole="recruiter" />
+    </div>
+  );
+
   const renderContent = () => {
     switch (activeSection) {
       case 'dashboard': return renderDashboard();
       case 'profile': return renderCompanyProfile();
       case 'job-postings': return renderJobPostings();
       case 'candidate-search': return renderCandidateSearch();
+      case 'alumni-map': return renderAlumniMap();
       case 'applications': return renderApplications();
       case 'interviews': return renderInterviews();
       case 'events': return renderEvents();

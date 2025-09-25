@@ -9,6 +9,7 @@ import JobsSection from '../../components/sections/JobsSection';
 import EventsSection from '../../components/sections/EventsSection';
 import ResourcesSection from '../../components/sections/ResourcesSection';
 import NotificationsSection from '../../components/sections/NotificationsSection';
+import AlumniMap from '../../components/ui/AlumniMap';
 import AIChatAssistant from '../../components/ui/AIChatAssistant';
 
 const StudentDashboard = () => {
@@ -23,6 +24,8 @@ const StudentDashboard = () => {
         return <ProfileSection />;
       case 'alumni-directory':
         return <AlumniDirectorySection />;
+      case 'alumni-map':
+        return <AlumniMap showInstituteFilter={false} userRole="student" />;
       case 'mentorship':
         return <MentorshipSection />;
       case 'jobs':

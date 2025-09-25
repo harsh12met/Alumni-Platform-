@@ -8,6 +8,7 @@ import {
   BookOpen, 
   Bell,
   Home,
+  MapPin,
   LogOut
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
@@ -19,6 +20,7 @@ const StudentSidebar = ({ activeSection, setActiveSection, isCollapsed, setIsCol
     { id: 'dashboard', label: 'Dashboard', icon: Home },
     { id: 'profile', label: 'Profile', icon: User },
     { id: 'alumni-directory', label: 'Alumni Directory', icon: Users },
+    { id: 'alumni-map', label: 'Alumni Map', icon: MapPin },
     { id: 'mentorship', label: 'Mentorship', icon: MessageSquare },
     { id: 'jobs', label: 'Jobs/Internships', icon: Briefcase },
     { id: 'events', label: 'Events', icon: Calendar },

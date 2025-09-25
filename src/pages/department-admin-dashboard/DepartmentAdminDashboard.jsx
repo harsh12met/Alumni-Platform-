@@ -14,9 +14,11 @@ import {
   Building2,
   Bell,
   Settings,
-  CheckCircle
+  CheckCircle,
+  MapPin
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import AlumniMap from '../../components/ui/AlumniMap';
 import AIChatAssistant from '../../components/ui/AIChatAssistant';
 
 // Import components
@@ -80,6 +82,13 @@ const DepartmentAdminDashboard = () => {
       icon: Briefcase, 
       path: '/department-admin-dashboard/jobs',
       description: 'Manage job postings'
+    },
+    { 
+      id: 'alumni-map', 
+      label: 'Alumni Map', 
+      icon: MapPin, 
+      path: '/department-admin-dashboard/alumni-map',
+      description: 'View alumni locations'
     },
     { 
       id: 'stories', 
@@ -258,6 +267,7 @@ const DepartmentAdminDashboard = () => {
             <Route path="/events" element={<DepartmentEvents />} />
             <Route path="/feedback" element={<DepartmentFeedback />} />
             <Route path="/jobs" element={<DepartmentJobs />} />
+            <Route path="/alumni-map" element={<AlumniMap showInstituteFilter={false} userRole="department-admin" />} />
             <Route path="/stories" element={<DepartmentStories />} />
             <Route path="/donations" element={<DepartmentDonations />} />
           </Routes>

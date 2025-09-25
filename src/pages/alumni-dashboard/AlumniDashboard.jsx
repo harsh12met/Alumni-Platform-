@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DashboardHeader from '../../components/DashboardHeader';
 import { useAuth } from '../../contexts/AuthContext';
 import { Users, Briefcase, MessageCircle, Calendar, Award, Building, MapPin, Heart } from 'lucide-react';
+import AlumniMap from '../../components/ui/AlumniMap';
 import AIChatAssistant from '../../components/ui/AIChatAssistant';
 
 const AlumniDashboard = () => {
   const { user } = useAuth();
+  const [showAlumniMap, setShowAlumniMap] = useState(false);
 
   const features = [
     {
@@ -49,6 +51,14 @@ const AlumniDashboard = () => {
       icon: Building,
       color: 'indigo',
       count: '12 Posts'
+    },
+    {
+      title: 'Alumni Map',
+      description: 'View global alumni locations',
+      icon: MapPin,
+      color: 'red',
+      count: 'Explore',
+      action: () => setShowAlumniMap(true)
     }
   ];
 
@@ -65,7 +75,8 @@ const AlumniDashboard = () => {
     purple: 'bg-purple-100 text-purple-600',
     orange: 'bg-orange-100 text-orange-600',
     yellow: 'bg-yellow-100 text-yellow-600',
-    indigo: 'bg-indigo-100 text-indigo-600'
+    indigo: 'bg-indigo-100 text-indigo-600',
+    red: 'bg-red-100 text-red-600'
   };
 
   return (
@@ -143,7 +154,11 @@ const AlumniDashboard = () => {
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {features.map((feature, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow cursor-pointer group">
+            <div 
+              key={index} 
+              onClick={feature.action || (() => {})}
+              className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow cursor-pointer group"
+            >
               <div className="flex items-center mb-4">
                 <div className={`w-12 h-12 ${colorClasses[feature.color]} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform`}>
                   <feature.icon className="w-6 h-6" />
@@ -197,6 +212,26 @@ const AlumniDashboard = () => {
           </div>
         </div>
       </div>
+
+      {/* Alumni Map Modal */}
+      {showAlumniMap && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl w-full max-w-6xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900">Alumni Location Map</h3>
+              <button
+                onClick={() => setShowAlumniMap(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ×
+              </button>
+            </div>
+            <div className="p-6">
+              <AlumniMap showInstituteFilter={false} userRole="alumni" />
+            </div>
+          </div>
+        </div>
+      )}
       
       {/* AI Chat Assistant */}
       <AIChatAssistant />
